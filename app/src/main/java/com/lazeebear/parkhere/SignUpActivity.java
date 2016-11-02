@@ -146,9 +146,16 @@ public class SignUpActivity extends AppCompatActivity {
     }
 
     private void attemptSignUp() {
-        ServerConnector.signup(sEmailView.getText().toString(), sPassword.getText().toString(),
+        /*ServerConnector.signup(sEmailView.getText().toString(), sPassword.getText().toString(),
                 sFirstName.getText().toString(), sLastName.getText().toString(),
-                sPhoneNum.getText().toString(), 0, 1, null);
+                sPhoneNum.getText().toString(), 0, 1, null);*/
+        //save locally
+
+
+        User.firstName = sFirstName.getText().toString();
+        User.lastName = sLastName.getText().toString();
+        User.phoneNumber = sPhoneNum.getText().toString();
+        User.email = sEmailView.getText().toString();
         Intent intent = new Intent(this, Account.class);
         startActivity(intent);
     }
