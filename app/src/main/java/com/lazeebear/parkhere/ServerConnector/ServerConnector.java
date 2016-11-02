@@ -46,170 +46,76 @@ public class ServerConnector {
         }
     }
 
-    static class GetTokenTask extends AsyncTask<Void,Void,Void>
-       {
-                String token;
-                boolean done = false;
-                boolean success = false;
-
-                        public GetTokenTask(){
-                    }
-
-                        protected void onPreExecute() {
-                        //display progress dialog.
-
-                                    }
-                protected Void doInBackground(Void... params) {
-                        try {
-                                String url = "http://35.160.111.133:8888/get/token";
-                                URL obj = new URL(url);
-                                HttpURLConnection con = (HttpURLConnection) obj.openConnection();
-                                con.setRequestMethod("GET");
-                                con.setRequestProperty("UserAgent", USER_AGENT);
-                                setConnCookies(con);
-                //			con.connect();
-                                        int responseCode = con.getResponseCode();
-                                System.out.println("\nSending 'GET' request to URL : " + url);
-                                System.out.println("Response Code : " + responseCode);
-
-
-                                                BufferedReader in = new BufferedReader(
-                                                new InputStreamReader(con.getInputStream()));
-                                String inputLine;
-                                StringBuffer response = new StringBuffer();
-
-                                        while ((inputLine = in.readLine()) != null) {
-                                        response.append(inputLine);
-                                    }
-                                in.close();
-                                token = response.toString();
-                                //print result
-                                        success = true;
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                            }
-                        done = true;
-                        return null;
-                    }
-
-
-
-                                        protected void onPostExecute(Void result) {
-                        // dismiss progress dialog and update ui
-                            }
-            }
-
-                static class SearchSpotTask extends AsyncTask<Void,Void,Void>
-        {
-                List<SpotDAO> spots;
-                String address;
-                boolean done = false;
-                boolean success = false;
-
-                        public SearchSpotTask(String address){
-                        this.address = address;
-                    }
-
-                        protected void onPreExecute() {
-                        //display progress dialog.
-
-                                    }
-                protected Void doInBackground(Void... params) {
-                        try {
-                                String url = "http://35.160.111.133:8888/search/spot?address="+ address.replace(' ', '+');
-                                URL obj = new URL(url);
-                                HttpURLConnection con = (HttpURLConnection) obj.openConnection();
-                                con.setRequestMethod("GET");
-                                con.setRequestProperty("User-Agent", USER_AGENT);
-                                setConnCookies(con);
-                                con.connect();
-                                int responseCode = con.getResponseCode();
-                                System.out.println("\nSending 'GET' request to URL : " + url);
-                                System.out.println("Response Code : " + responseCode);
-
-
-                                                BufferedReader in = new BufferedReader(
-                                                new InputStreamReader(con.getInputStream()));
-                                String inputLine;
-                                StringBuffer response = new StringBuffer();
-
-                                        while ((inputLine = in.readLine()) != null) {
-                                        response.append(inputLine);
-                                    }
-                                in.close();
-
-                            Gson gson = new Gson();
-                                Type typeOfT = new TypeToken<List<SpotDAO>>(){}.getType();
-                                spots = gson.fromJson(response.toString(), typeOfT);
-                                //print result
-                                        success = true;
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                            }
-                        done = true;
-                        return null;
-                    }
-
-
-            protected void onPostExecute(Void result) {
-
-                        // dismiss progress dialog and update ui
-                            }
-            }
-
-    public static List<SpotDAO> searchSpot(String address) throws Exception {
-                SearchSpotTask s = new SearchSpotTask(address);
-                s.execute();
-                while(!s.done)
-                        ;
-                if(s.success)
-                        return s.spots;
-                return null;
-            }
-
-                /*
-     Success  200 returned
-     Failure  401 returned
-      */
-                /*
-     public static int sigin(String email, String password) {
-         String url = Configs.baseURL + Configs.signinEndpoint + "?email=" + email + "&password=" + password;
-
-         RestTemplate restTemplate = new RestTemplate();
-         ResponseEntity entity = restTemplate.getForEntity(url, Object.class);
-
-         return entity.getStatusCode().value();
-     }
-     */
-
-    public static String getToken() {
-                GetTokenTask s = new GetTokenTask();
-                s.execute();
-                while(!s.done)
-                        ;
-                if(s.success)
-                        return s.token;
-                return null;
-            }
-
-    static class SpotDetailsTask extends AsyncTask<Void,Void,Void>
-    {
-        String spotID;
-        SpotDetailsDAO spot;
+    static class GetTokenTask extends AsyncTask<Void, Void, Void> {
+        String token;
         boolean done = false;
         boolean success = false;
 
-        public SpotDetailsTask(String id){
-            this.spotID = id;
+        public GetTokenTask() {
         }
 
         protected void onPreExecute() {
             //display progress dialog.
 
         }
+
         protected Void doInBackground(Void... params) {
             try {
-                String url = "http://35.160.111.133:8888/view/spot?spotid="+spotID;
+                String url = "http://35.160.111.133:8888/get/token";
+                URL obj = new URL(url);
+                HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+                con.setRequestMethod("GET");
+                con.setRequestProperty("UserAgent", USER_AGENT);
+                setConnCookies(con);
+                //			con.connect();
+                int responseCode = con.getResponseCode();
+                System.out.println("\nSending 'GET' request to URL : " + url);
+                System.out.println("Response Code : " + responseCode);
+
+
+                BufferedReader in = new BufferedReader(
+                        new InputStreamReader(con.getInputStream()));
+                String inputLine;
+                StringBuffer response = new StringBuffer();
+
+                while ((inputLine = in.readLine()) != null) {
+                    response.append(inputLine);
+                }
+                in.close();
+                token = response.toString();
+                //print result
+                success = true;
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            done = true;
+            return null;
+        }
+
+
+        protected void onPostExecute(Void result) {
+            // dismiss progress dialog and update ui
+        }
+    }
+
+    static class SearchSpotTask extends AsyncTask<Void, Void, Void> {
+        List<SpotDAO> spots;
+        String address;
+        boolean done = false;
+        boolean success = false;
+
+        public SearchSpotTask(String address) {
+            this.address = address;
+        }
+
+        protected void onPreExecute() {
+            //display progress dialog.
+
+        }
+
+        protected Void doInBackground(Void... params) {
+            try {
+                String url = "http://35.160.111.133:8888/search/spot?address=" + address.replace(' ', '+');
                 URL obj = new URL(url);
                 HttpURLConnection con = (HttpURLConnection) obj.openConnection();
                 con.setRequestMethod("GET");
@@ -232,7 +138,102 @@ public class ServerConnector {
                 in.close();
 
                 Gson gson = new Gson();
-                Type typeOfT = new TypeToken<SpotDetailsDAO>(){}.getType();
+                Type typeOfT = new TypeToken<List<SpotDAO>>() {
+                }.getType();
+                spots = gson.fromJson(response.toString(), typeOfT);
+                //print result
+                success = true;
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            done = true;
+            return null;
+        }
+
+
+        protected void onPostExecute(Void result) {
+
+            // dismiss progress dialog and update ui
+        }
+    }
+
+    public static List<SpotDAO> searchSpot(String address) throws Exception {
+        SearchSpotTask s = new SearchSpotTask(address);
+        s.execute();
+        while (!s.done)
+            ;
+        if (s.success)
+            return s.spots;
+        return null;
+    }
+
+                /*
+     Success  200 returned
+     Failure  401 returned
+      */
+                /*
+     public static int sigin(String email, String password) {
+         String url = Configs.baseURL + Configs.signinEndpoint + "?email=" + email + "&password=" + password;
+
+         RestTemplate restTemplate = new RestTemplate();
+         ResponseEntity entity = restTemplate.getForEntity(url, Object.class);
+
+         return entity.getStatusCode().value();
+     }
+     */
+
+    public static String getToken() {
+        GetTokenTask s = new GetTokenTask();
+        s.execute();
+        while (!s.done)
+            ;
+        if (s.success)
+            return s.token;
+        return null;
+    }
+
+    static class SpotDetailsTask extends AsyncTask<Void, Void, Void> {
+        String spotID;
+        SpotDetailsDAO spot;
+        boolean done = false;
+        boolean success = false;
+
+        public SpotDetailsTask(String id) {
+            this.spotID = id;
+        }
+
+        protected void onPreExecute() {
+            //display progress dialog.
+
+        }
+
+        protected Void doInBackground(Void... params) {
+            try {
+                String url = "http://35.160.111.133:8888/view/spot?spotid=" + spotID;
+                URL obj = new URL(url);
+                HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+                con.setRequestMethod("GET");
+                con.setRequestProperty("User-Agent", USER_AGENT);
+                setConnCookies(con);
+                con.connect();
+                int responseCode = con.getResponseCode();
+                System.out.println("\nSending 'GET' request to URL : " + url);
+                System.out.println("Response Code : " + responseCode);
+
+
+                BufferedReader in = new BufferedReader(
+                        new InputStreamReader(con.getInputStream()));
+                String inputLine;
+                StringBuffer response = new StringBuffer();
+
+                while ((inputLine = in.readLine()) != null) {
+                    response.append(inputLine);
+                }
+                in.close();
+
+                Gson gson = new Gson();
+                Type typeOfT = new TypeToken<SpotDetailsDAO>() {
+                }.getType();
                 spot = gson.fromJson(response.toString(), typeOfT);
                 //print result
                 success = true;
@@ -244,30 +245,28 @@ public class ServerConnector {
         }
 
 
-
         protected void onPostExecute(Void result) {
             // dismiss progress dialog and update ui
         }
     }
 
-    public static SpotDetailsDAO spotDetails(int spotID) throws Exception {
+    public static SpotDetailsDAO spotDetails(String spotID) throws Exception {
         SpotDetailsTask s = new SpotDetailsTask(spotID);
         s.execute();
-        while(!s.done)
+        while (!s.done)
             ;
-        if(s.success)
+        if (s.success)
             return s.spot;
         return null;
     }
 
-    static class SignInTask extends AsyncTask<Void,Void,Void>
-    {
+    static class SignInTask extends AsyncTask<Void, Void, Void> {
         String email;
         String password;
         boolean done = false;
         boolean success = false;
 
-        public SignInTask(String email, String password){
+        public SignInTask(String email, String password) {
             this.email = email;
             this.password = password;
         }
@@ -276,6 +275,7 @@ public class ServerConnector {
             //display progress dialog.
 
         }
+
         protected Void doInBackground(Void... params) {
             try {
                 String url = "http://35.160.111.133:8888/signin";
@@ -328,7 +328,6 @@ public class ServerConnector {
         }
 
 
-
         protected void onPostExecute(Void result) {
             // dismiss progress dialog and update ui
         }
@@ -337,13 +336,12 @@ public class ServerConnector {
     public static boolean signin(String email, String password) {
         SignInTask s = new SignInTask(email, password);
         s.execute();
-        while(!s.done)
+        while (!s.done)
             ;
         return s.success;
     }
 
-    static class SignUpTask extends AsyncTask<Void,Void,Void>
-    {
+    static class SignUpTask extends AsyncTask<Void, Void, Void> {
         String email;
         String password;
         String first;
@@ -355,7 +353,7 @@ public class ServerConnector {
         boolean done = false;
         boolean success = false;
 
-        public SignUpTask(String email, String password, String first, String last, String phone, int seeker, int owner, Base64 profilePic){
+        public SignUpTask(String email, String password, String first, String last, String phone, int seeker, int owner, Base64 profilePic) {
             this.email = email;
             this.password = password;
             this.first = first;
@@ -370,6 +368,7 @@ public class ServerConnector {
             //display progress dialog.
 
         }
+
         protected Void doInBackground(Void... params) {
             try {
                 String url = "http://35.160.111.133:8888/signup";
@@ -431,7 +430,6 @@ public class ServerConnector {
         }
 
 
-
         protected void onPostExecute(Void result) {
             // dismiss progress dialog and update ui
         }
@@ -453,20 +451,20 @@ public class ServerConnector {
         return entity.getStatusCode().value();
     }
     */
-    public static int signup(String email, String password, String first, String last, String phone, int seeker, int owner, Base64 profilePic) {
+    public static int signup(String email, String password, String first, String last,
+                             String phone, int seeker, int owner, Base64 profilePic) {
         SignUpTask s = new SignUpTask(email, password, first, last, phone, seeker, owner, profilePic);
         s.execute();
-        while(!s.done)
+        while (!s.done)
             ;
-        if(s.success)
+        if (s.success)
             return 200;
         else
             return 401;
     }
 
 
-    static class BookSpotTask extends AsyncTask<Void,Void,Void>
-    {
+    static class BookSpotTask extends AsyncTask<Void, Void, Void> {
         String amount;
         String payment_method_nonce;
         String email;
@@ -474,7 +472,7 @@ public class ServerConnector {
         boolean done = false;
         boolean success = false;
 
-        public BookSpotTask(String amount, String payment_method_nonce, String email, String spotID){
+        public BookSpotTask(String amount, String payment_method_nonce, String email, String spotID) {
             this.amount = amount;
             this.payment_method_nonce = payment_method_nonce;
             this.email = email;
@@ -485,6 +483,7 @@ public class ServerConnector {
             //display progress dialog.
 
         }
+
         protected Void doInBackground(Void... params) {
             try {
                 String url = "http://35.160.111.133:8888/book/spot";
@@ -539,21 +538,36 @@ public class ServerConnector {
         }
 
 
-
         protected void onPostExecute(Void result) {
             // dismiss progress dialog and update ui
         }
     }
 
-    public static int bookSpot(String amount, String payment_method_nonce, String email, String spotID){
+    public static int bookSpot(String amount, String payment_method_nonce, String email, String spotID) {
         BookSpotTask s = new BookSpotTask(amount, payment_method_nonce, email, spotID);
         s.execute();
-        while(!s.done)
+        while (!s.done)
             ;
-        if(s.success)
+        if (s.success)
             return 200;
         else
             return 401;
     }
 
+    public static int createSpot(String addressString, String spot_type, String isCovered,
+                                 String cancellation, double price, String startString,
+                                 String endString, String description, int one) {
+        //TODO do something here.
+        return 1;
+    }
+
+    public static int addReviewSpot(int rate, String spotID) {
+        //TODO do something here
+        return 1;
+    }
+
+    public static int addReviewUser(int rate, String userID) {
+        //TODO do something here
+        return 1;
+    }
 }
