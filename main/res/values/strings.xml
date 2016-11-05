@@ -1,0 +1,95 @@
+<resources>
+    <string name="app_name">ParkHere</string>
+    <string name="submit">Submit</string>
+    <string name="select">Select</string>
+
+    <!-- Strings related to login -->
+    <string name="title_activity_login">Sign In</string>
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password</string>
+    <string name="action_sign_in">Sign in</string>
+    <string name="action_register">Register</string>
+    <string name="error_invalid_email">This email address is invalid</string>
+    <string name="error_invalid_password">This password is too short</string>
+    <string name="error_incorrect_password">This password is incorrect</string>
+    <string name="error_field_required">This field is required</string>
+    <string name="permission_rationale">"Contacts permissions are needed for providing email
+        completions."
+    </string>
+    <string name="title_spot_list">Spots</string>
+    <string name="title_spot_detail">Spot Detail</string>
+    <string name="title_activity_filter_search_results">FilterSearchResults</string>
+
+    <!-- Strings related to Sign Up -->
+    <string name="title_activity_sign_up">Sign Up</string>
+
+    <!--filter search results-->
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="filter_search_results_title">Filter Search Results</string>
+    <string name="owner_rating_label">Owner Rating</string>
+    <string name="spot_rating_label">Spot Rating</string>
+    <string name="car_type_label">Car Type</string>
+    <string name="date_range_label">Date Range</string>
+    <string name="price_range_label">Price Range</string>
+    <string name="covered_label">Covered</string>
+    <string name="distance_label">Distance from Location</string>
+    <string name="prompt_distance">Meters</string>
+
+    <!--add review-->
+    <string name="add_review_title">Add Review</string>
+    <string name="comment_label">Comment(Optional)</string>
+    <string name="action_settings">Settings</string>
+
+    <!--search-->
+    <string name="search_title">Search</string>
+    <string name="address_label">Address</string>
+    <string name="coordinates_label">Coordinates</string>
+    <string name="prompt_coorX">X</string>
+    <string name="prompt_coorY">Y</string>
+    <string name="date_label">Date</string>
+    <string name="time_slot_label">Time Slot</string>
+    <string name="search_button_label">Search</string>
+
+    <!--create parking spot-->
+    <string name="repeat_weekly_label">Repeat Weekly</string>
+    <string name="date_hint_label">mm/dd/yy</string>
+    <string name="hour_hint_label">hh:mm</string>
+    <string name="to"> to </string>
+    <string name="upload_photo_button_label">Upload Photo</string>
+
+    <!--parking spot-->
+    <string name="back_button">Back</string>
+    <string name="photos_label">Photos</string>
+    <string name="photos_contentDescription">A photo of the parking spot.</string>
+    <string name="owner_label">Owner</string>
+    <string name="owner_phonenum_label">Phone Number</string>
+    <string name="previous_renters_label">Previous Renters</string>
+    <string name="price_label">Price</string>
+    <string name="description_label">Description</string>
+    <string name="average_rating_label">Average Rating</string>
+    <string name="previous_ratings_label">Previous Ratings</string>
+
+    <!--payment-->
+    <string name="payment_info_label">Transaction Information</string>
+    <string name="complete_payment_button_label">Complete Payment</string>
+    <string name="pay_by_paypal_label">Pay by Paypal</string>
+    <string name="pay_by_credit_card_label">Pay by Credit Card</string>
+    <string name="account_name">Account Name</string>
+
+    <!--create spot -->
+   <string name="flexible_option" formatted="false">
+       Users will receive a full refund, excluding ParkHere fee (10%), if cancellation occurs 24 hours or more before rental period.\n
+       Users will receive no refund if their cancellation occurs less 24 hours before the rental period.\n
+       Users who leave early will receive a refund for the hours not spent in the space 24 hours after their cancellation.
+   </string>
+   <string name="moderate_option" formatted="false">
+       Users will receive a full refund, excluding ParkHere fee (10%), if cancellation occurs five days or more before rental period.\n
+       Users will receive a refund for 50% of the rental fees for the entire rental period excluding the first 24 hours.\n
+       Users who leave early will receive a refund for 50% of the hours not spent in the space 24 hours after their cancellation.
+   </string>
+   <string name="strict_option" formatted="false">
+       Users will receive a 50% refund if cancellation occurs seven days or more before rental period.\n
+       If the user cancels less than 7 days in advance of the rental period, no value will be refunded.
+   </string>
+</resources>

@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.lazeebear.parkhere">
+
+    <!-- To auto-complete the email text field in the login form with the user's emails -->
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <uses-permission android:name="android.permission.READ_PROFILE" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+
+    <!-- To allow the app to consume RESTful Webservice -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <!-- To allow the app to save a photo -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <!--
+         To allow the owner to take photos.
+        Be sure to call hasSystemFeature(PackageManager.FEATURE_CAMERA at runtime.
+        If a camera is not available, disable camera features.
+    -->
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="false" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity android:name=".MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".LoginActivity"
+            android:label="@string/title_activity_login" />
+        <activity
+            android:name=".SpotListActivity"
+            android:label="@string/title_spot_list"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".SpotDetailActivity"
+            android:label="@string/title_spot_detail"
+            android:parentActivityName=".SpotListActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.lazeebear.parkhere.SpotListActivity" />
+        </activity>
+
+        <activity android:name=".AddUserRatingActivity" />
+        <activity android:name=".Search" />
+        <activity
+            android:name=".SignUpActivity"
+            android:label="@string/title_activity_sign_up"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".Account"
+            android:label="Account"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".PaymentActivity" />
+        <activity
+            android:name=".ForgotPasswordActivity"
+            android:label="Forgot Password"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".CreateSpotActivity" />
+        <!-- braintree requirement to allow the application to switch to Paypal, detailed here: https://developers.braintreepayments.com/guides/client-sdk/setup/android/v2#browser-switch-setup -->
+        <activity
+            android:name="com.braintreepayments.api.BraintreeBrowserSwitchActivity"
+            android:launchMode="singleTask">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data android:scheme="$com.lazeebear.parkhere.braintree" />
+                <!-- <data android:scheme="${applicationId}.braintree" /> -->
+            </intent-filter>
+        </activity>
+        <activity android:name=".AddSpotRatingActivity"></activity>
+    </application>
+
+</manifest>
